@@ -3,125 +3,338 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Attractions Price Finder</title>
+<title>Attractions Explorer</title>
 <style>
+:root {
+  --booking-blue: #003b95;
+  --booking-accent: #006ce4;
+  --booking-yellow: #febb02;
+  --bg: #f5f7fa;
+  --text: #1a1a1a;
+  --muted: #627181;
+  --card: #ffffff;
+  --border: #d9e2ec;
+  --success: #12805c;
+  --error: #b42318;
+}
+* { box-sizing: border-box; }
 body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	background: #f4f6f8;
-	color: #172033
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
 }
-
-.wrap {
-	max-width: 1100px;
-	margin: auto;
-	padding: 32px
+.topbar {
+  background: var(--booking-blue);
+  color: #fff;
+  padding: 22px 0 72px;
 }
-
-.hero {
-	background: #123d6b;
-	color: white;
-	border-radius: 14px;
-	padding: 28px
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-
-.controls {
-	display: flex;
-	gap: 12px;
-	margin: 20px 0;
-	flex-wrap: wrap
+.brand {
+  font-size: 24px;
+  font-weight: 700;
 }
-
-select, button {
-	padding: 12px 16px;
-	border-radius: 8px;
-	border: 1px solid #ccd3dc;
-	font-size: 16px
+.subtitle {
+  margin: 10px 0 0;
+  opacity: .9;
 }
-
-button {
-	background: #1769aa;
-	color: #fff;
-	border: 0;
-	cursor: pointer
+.search-panel {
+  background: #fff;
+  border: 4px solid var(--booking-yellow);
+  border-radius: 14px;
+  margin-top: -46px;
+  padding: 14px;
+  box-shadow: 0 8px 20px #002b6b20;
 }
-
+.search-row {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr .7fr auto;
+  gap: 10px;
+}
+.input {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  font-size: 15px;
+  background: #fff;
+}
+.btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary { background: var(--booking-accent); color: #fff; }
+.btn-secondary { background: #e9f0fa; color: #17417c; }
+main { padding: 22px 0 34px; }
 .status {
-	margin: 10px 0;
-	color: #5b6573
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #eef3f8;
+  color: #243648;
+  margin-bottom: 14px;
 }
-
+.status.error { background: #fee4e2; color: var(--error); }
+.status.success { background: #dcfae6; color: var(--success); }
 .grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: 16px
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
 }
-
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+.panel h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
 .card {
-	background: white;
-	border-radius: 12px;
-	padding: 18px;
-	box-shadow: 0 2px 8px #0001
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
 }
-
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
 .price {
-	font-size: 24px;
-	font-weight: 700
+  font-size: 24px;
+  color: var(--booking-blue);
+  font-weight: 700;
+  margin: 6px 0;
 }
-
 .meta {
-	color: #687385;
-	font-size: 14px;
-	margin-top: 8px
+  margin: 4px 0;
+  color: var(--muted);
+  font-size: 14px;
 }
-
-.badge {
-	display: inline-block;
-	padding: 4px 8px;
-	border-radius: 12px;
-	background: #e9f5ec;
-	color: #18743a;
-	font-size: 12px
+.endpoint-list {
+  display: grid;
+  gap: 10px;
 }
-
-.error {
-	color: #a12626
+.endpoint {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
 }
-
-.small {
-	font-size: 13px;
-	color: #687385
+.endpoint strong { color: var(--booking-blue); }
+pre {
+  margin: 10px 0 0;
+  border-radius: 10px;
+  background: #0d1b2a;
+  color: #d2f4ff;
+  padding: 10px;
+  font-size: 12px;
+  overflow: auto;
+  max-height: 180px;
+}
+.small { font-size: 13px; color: var(--muted); }
+@media (max-width: 960px) {
+  .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .search-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
-	<div class="wrap">
-		<div class="hero">
-			<h1>Attractions Price Finder</h1>
-			<p>Standalone Spring Boot demo — cheapest available attractions
-				over the next 90 days.</p>
-		</div>
-		<div class="controls">
-			<select id="city"><option>London</option>
-				<option>New York</option></select>
-			<button onclick="search()">Find cheapest attractions</button>
-			<button onclick="refresh()">Refresh supplier data</button>
-			<button onclick="clearCache()">Clear cache</button>
-		</div>
-		<div id="status" class="status">Starting...</div>
-		<div id="results" class="grid"></div>
-		<p class="small">
-			Data is simulated locally. H2 console: <a href="/h2-console"
-				target="_blank">/h2-console</a>. API:
-			<code>/api/v1/cities/{city}/attractions/cheapest</code>
-		</p>
-	</div>
-	<script>
-async function search(){const city=document.getElementById('city').value; status('Loading...'); try{const r=await fetch('/api/v1/cities/'+encodeURIComponent(city)+'/attractions/cheapest?limit=20'); if(!r.ok)throw new Error(await r.text()); const d=await r.json(); document.getElementById('status').textContent=`${d.attractions.length} results • ${d.validFrom} to ${d.validTo}`; document.getElementById('results').innerHTML=d.attractions.map((a,i)=>`<div class="card"><span class="badge">#${i+1}</span><h2>${a.name}</h2><div class="price">${a.minimumPrice.toFixed(2)} ${a.currency}</div><div class="meta">Lowest price: ${a.availableDate} at ${a.availableTime || ''}</div><div class="meta">Supplier: ${a.supplierId}</div></div>`).join('');}catch(e){status('Error: '+e.message,true)}}
-async function refresh(){status('Refreshing supplier availability asynchronously...'); await fetch('/api/v1/admin/refresh',{method:'POST'}); setTimeout(search,1500)}
-async function clearCache(){await fetch('/api/v1/admin/cache/clear',{method:'POST'}); status('Cache cleared'); search()}
-function status(t,error=false){const e=document.getElementById('status');e.textContent=t;e.className='status'+(error?' error':'')}
-let attempts=0; async function initialSearch(){ attempts++; await search(); if(document.getElementById('results').children.length===0 && attempts<8){setTimeout(initialSearch,2000);} } setTimeout(initialSearch,2500);
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">Attractions Explorer</div>
+      <p class="subtitle">Search local attractions and call API endpoints from one place.</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="search-panel">
+      <div class="search-row">
+        <select id="city" class="input">
+          <option value="London">London</option>
+          <option value="New York">New York</option>
+        </select>
+        <input id="limit" class="input" type="number" min="1" max="20" value="20" aria-label="Result limit">
+        <button class="btn btn-secondary" onclick="loadCatalog()">Load Catalog</button>
+        <button class="btn btn-primary" onclick="loadCheapest()">Search</button>
+      </div>
+    </section>
+
+    <main>
+      <div id="status" class="status">Ready</div>
+
+      <div class="grid">
+        <section class="panel">
+          <h2>Cheapest Attractions</h2>
+          <div id="results" class="cards"></div>
+        </section>
+
+        <aside class="panel">
+          <h2>Endpoint Console</h2>
+          <div class="endpoint-list">
+            <div class="endpoint">
+              <strong>GET</strong> /api/v1/cities/{city}/attractions/cheapest
+              <button class="btn btn-secondary" style="margin-top:8px;width:100%" onclick="loadCheapest()">Call endpoint</button>
+              <pre id="cheapestResponse">No response yet.</pre>
+            </div>
+
+            <div class="endpoint">
+              <strong>GET</strong> /api/v1/catalog/products?city={city}
+              <button class="btn btn-secondary" style="margin-top:8px;width:100%" onclick="loadCatalog()">Call endpoint</button>
+              <pre id="catalogResponse">No response yet.</pre>
+            </div>
+
+            <div class="endpoint">
+              <strong>POST</strong> /api/v1/admin/refresh
+              <button class="btn btn-secondary" style="margin-top:8px;width:100%" onclick="refreshData()">Call endpoint</button>
+              <pre id="refreshResponse">No response yet.</pre>
+            </div>
+
+            <div class="endpoint">
+              <strong>POST</strong> /api/v1/admin/cache/clear
+              <button class="btn btn-secondary" style="margin-top:8px;width:100%" onclick="clearCache()">Call endpoint</button>
+              <pre id="cacheResponse">No response yet.</pre>
+            </div>
+          </div>
+          <p class="small">H2 Console: <a href="/h2-console" target="_blank" rel="noopener noreferrer">/h2-console</a></p>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+<script>
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function setStatus(message, type = '') {
+  const node = document.getElementById('status');
+  node.textContent = message;
+  node.className = 'status' + (type ? ' ' + type : '');
+}
+
+function setResponse(id, payload) {
+  document.getElementById(id).textContent = typeof payload === 'string'
+    ? payload
+    : JSON.stringify(payload, null, 2);
+}
+
+function selectedCity() {
+  return document.getElementById('city').value;
+}
+
+function selectedLimit() {
+  const value = Number(document.getElementById('limit').value);
+  return Number.isFinite(value) ? Math.min(20, Math.max(1, value)) : 20;
+}
+
+function renderAttractions(attractions) {
+  const container = document.getElementById('results');
+  if (!attractions.length) {
+    container.innerHTML = '<div class="card">No attractions available.</div>';
+    return;
+  }
+
+  container.innerHTML = attractions.map((a, index) => `
+    <article class="card">
+      <h3>${escapeHtml(a.name ?? 'Unknown')}</h3>
+      <div class="price">${Number(a.minimumPrice ?? 0).toFixed(2)} ${escapeHtml(a.currency ?? '')}</div>
+      <p class="meta">#${index + 1} • ${escapeHtml(a.availableDate ?? '')} ${escapeHtml(a.availableTime ?? '')}</p>
+      <p class="meta">Supplier: ${escapeHtml(a.supplierId ?? 'N/A')}</p>
+    </article>
+  `).join('');
+}
+
+async function callJson(url, options = {}) {
+  const response = await fetch(url, options);
+  let body;
+  try {
+    body = await response.json();
+  } catch (_) {
+    body = await response.text();
+  }
+
+  if (!response.ok) {
+    const message = typeof body === 'string' ? body : JSON.stringify(body);
+    throw new Error(message || `Request failed with ${response.status}`);
+  }
+  return body;
+}
+
+async function loadCheapest() {
+  const city = encodeURIComponent(selectedCity());
+  const limit = selectedLimit();
+  setStatus('Loading cheapest attractions...');
+  try {
+    const data = await callJson(`/api/v1/cities/${city}/attractions/cheapest?limit=${limit}`);
+    renderAttractions(data.attractions || []);
+    setResponse('cheapestResponse', data);
+    setStatus(`${(data.attractions || []).length} attractions loaded for ${selectedCity()}.`, 'success');
+  } catch (error) {
+    setStatus(`Failed to load attractions: ${error.message}`, 'error');
+    setResponse('cheapestResponse', String(error.message));
+  }
+}
+
+async function loadCatalog() {
+  const city = encodeURIComponent(selectedCity());
+  setStatus('Loading product catalog...');
+  try {
+    const data = await callJson(`/api/v1/catalog/products?city=${city}`);
+    setResponse('catalogResponse', data);
+    setStatus(`Catalog returned ${Array.isArray(data) ? data.length : 0} products.`, 'success');
+  } catch (error) {
+    setStatus(`Failed to load catalog: ${error.message}`, 'error');
+    setResponse('catalogResponse', String(error.message));
+  }
+}
+
+async function refreshData() {
+  setStatus('Refreshing supplier data...');
+  try {
+    const data = await callJson('/api/v1/admin/refresh', { method: 'POST' });
+    setResponse('refreshResponse', data);
+    setStatus('Refresh triggered. Reloading cheapest attractions...', 'success');
+    setTimeout(loadCheapest, 1200);
+  } catch (error) {
+    setStatus(`Failed to refresh data: ${error.message}`, 'error');
+    setResponse('refreshResponse', String(error.message));
+  }
+}
+
+async function clearCache() {
+  setStatus('Clearing cache...');
+  try {
+    const data = await callJson('/api/v1/admin/cache/clear', { method: 'POST' });
+    setResponse('cacheResponse', data);
+    setStatus('Cache cleared. Reloading cheapest attractions...', 'success');
+    setTimeout(loadCheapest, 350);
+  } catch (error) {
+    setStatus(`Failed to clear cache: ${error.message}`, 'error');
+    setResponse('cacheResponse', String(error.message));
+  }
+}
+
+setTimeout(loadCheapest, 400);
 </script>
 </body>
 </html>

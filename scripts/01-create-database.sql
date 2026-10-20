@@ -1,0 +1,5 @@
+-- H2 is embedded/file based. The application creates the tables automatically with JPA.
+-- This script documents the logical schema and can be used as a reference.
+-- To inspect the database manually, open: http://localhost:8080/h2-console
+-- JDBC URL: jdbc:h2:file:./data/attractions
+-- User: sa / Password: blank
